@@ -1,0 +1,31 @@
+---
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        ports: [5432:5432]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: btx_ex_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+
+    env:
+      RAILS_ENV: test
+      CI: true
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1.4'
+          bundler-cache: true
+      - run: bundle exec rubocop

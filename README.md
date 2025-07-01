@@ -1,24 +1,25 @@
-# README
+# BTC Exchange Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting started
 
-Things you may want to cover:
+### Prerequisites
 
-* Ruby version
+1. Set the required environment variables for the Docker container:
 
-* System dependencies
+```sh
+export BTC_WALLET_KEY_FILE=...
+```
 
-* Configuration
+- `BTC_WALLET_KEY_FILE`: Path to your Bitcoin _private_ key file in WIF format.
 
-* Database creation
+1. Checkout submodule for frontend:
 
-* Database initialization
+`git submodule update --init`
 
-* How to run the test suite
+### Starting
 
-* Services (job queues, cache servers, search engines, etc.)
+`docker compose up`
 
-* Deployment instructions
+Once running, access the [frontend](http://localhost:3000/app/) or the [admin panel](http://localhost:3000/admin/).
 
-* ...
+Use the following default creds for admin: `admin@example.com | password`.

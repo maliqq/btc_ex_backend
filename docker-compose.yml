@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    volumes:
+      - .:/srv
+      - /srv/public/app
+      - /srv/public/assets
+      - ${BTC_WALLET_KEY_FILE}:/srv/storage/priv/btc.key
+    ports:
+      - "3000:3000"
+    environment:
+      - SECRET_KEY_BASE=e52750652278b6e53bfbefa60533e78d0f8d1c29373dafe1f76545e732a34d32f6f98dd99c158cfbf5b6374174d86bee4dce2fc4f3957ff0b21abd5d3aa86e28
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/btc_ex_development
+      - REDIS_URL=redis://redis:6379/0
+      - BTC_WALLET_KEY_FILE=storage/priv/btc.key
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: btx_ex_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
