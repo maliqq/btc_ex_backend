@@ -6,6 +6,22 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     columns do
       column do
+        panel "System Wallet" do
+          dl do
+            dt "BTC Address"
+            dd do
+              code WalletService.wallet.address
+            end
+
+            dt "BTC Balance"
+            dd do
+              h1 Money.new(WalletService.wallet.balance, "BTC").format
+            end
+          end
+        end
+      end
+
+      column do
         panel "Statistics" do
           dl do
             dt "Total exchange fee"
