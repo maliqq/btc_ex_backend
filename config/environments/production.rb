@@ -59,7 +59,7 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] } if ENV['REDIS_URL']
+  config.cache_store = :redis_cache_store, { url: ENV["REDIS_URL"] } if ENV["REDIS_URL"]
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
